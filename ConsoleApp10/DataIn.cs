@@ -20,25 +20,38 @@ namespace ConsoleApp6
         {
             Density_20 = d;
             Temperature = t;
-            if (CT.GetLength(1) > 2)
-            {
-                throw new Exception("Invalid Calibration Table Length");
-            }
             CalibrationTable = CT;
             Level = lvl;
         }
-        public string CalibrationTableToString()
+        public string FormatCalibrationTable()
         {
-            string CalibrTbl = "";
-            for (int i = 0; i < CalibrationTable.GetLength(0); i++)
+            double tmp = Level/10;
+            int i;
+            for (i = 0; i < CalibrationTable.GetLength(0); i++)
             {
-                CalibrTbl += CalibrationTable[i, 0] + "=" + CalibrationTable[i, 1];
-                if (i != CalibrationTable.GetLength(0) - 1)
+                if (i != 0 && CalibrationTable[i, 0] != CalibrationTable[i - 1, 0] + 1)
                 {
-                    CalibrTbl += "\r\n";
+                    throw new Exception("Ошибка в калибровочной строке: Элементы должны отличаться на 1 мм");
+                }
+                if (tmp <= CalibrationTable[i, 0])
+                {
+                    string str = CalibrationTable[i, 0] + "=" + CalibrationTable[i, 1];
+                    if (tmp != CalibrationTable[i, 0]) 
+                    {
+                        if (i + 1 != CalibrationTable.GetLength(0))
+                        {
+                            throw new Exception("Ошибка в калибровочной строке: Отсутствует элемент " + (tmp + 1));
+                        }
+                        if (CalibrationTable[i + 1, 0] != tmp + 1)
+                        {
+                            throw new Exception("Ошибка в калибровочной строке: Ошибка в " + (i + 1) + "-й строке");
+                        }
+                        str += "\r\n" + CalibrationTable[i + 1, 0] + "=" + CalibrationTable[i + 1, 1];
+                    }
+                    return str;
                 }
             }
-            return CalibrTbl;
+            throw new Exception("Ошибка в калибровочной строке: Отсутствуют элементы" + tmp + " и " + (tmp + 1));
         }
     }
 }

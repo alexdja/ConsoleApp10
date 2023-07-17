@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calc.cs" />
     <Compile Include="DataIn.cs" />
     <Compile Include="DataOut.cs" />
     <Compile Include="Program.cs" />

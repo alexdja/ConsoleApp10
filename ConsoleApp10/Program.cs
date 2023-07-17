@@ -22,22 +22,11 @@ namespace ConsoleApp10
             //double[,] CalibrationTable = { { 10, 0.997 }, { 11, 1.144 }, { 200, 70.008 }, { 201, 70.405 } };
             //DataIn dIn = new DataIn(520, 30, CalibrationTable, 2000);
             DataIn dIn = JsonConvert.DeserializeObject<DataIn>(File.ReadAllText(pathToInput));
-
-
-            var M = new CMethodOfMetering13
-            {
-                Tr = dIn.Temperature,
-                R = dIn.Density_20,
-                Tcy = DataIn.Density_Temperature,
-                CalibrationTable = dIn.CalibrationTableToString(),
-                H = dIn.Level,
-                ToolType = ToolTypeEnum.ToolType_Areometer_20
-            };
-
-            M.Exec();
             string outputPath = "..\\output.json";
-            DataOut dataOut = new DataOut(M.M, M.V, M.Vcy * M.Rcy / M.V_product, M.Rcy);
-            dataOut.WriteJsonFile(outputPath);
+            DataOut dOut = null;
+            Calc.Exec(dIn, outputPath, out dOut);
+
+            //dataOut.WriteJsonFile(outputPath);
             System.Threading.Thread.Sleep(1000);    
         }
     }
