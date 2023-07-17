@@ -20,7 +20,7 @@ namespace ConsoleApp10
                 M.R = dataIn.Density_20;
                 M.Tcy = DataIn.Density_Temperature;
                 M.CalibrationTable = dataIn.FormatCalibrationTable();
-                M.H = dataIn.Level;
+                M.H = dataIn.Level_full;
                 M.ToolType = ToolTypeEnum.ToolType_Areometer_20;
                 M.Exec();
                 dataOut = new DataOut(M.M, M.V, M.Rv, M.Rcy);
@@ -32,6 +32,7 @@ namespace ConsoleApp10
                 Console.WriteLine("Ошибка :" + ex.ToString());
                 Console.WriteLine(M.ResultDetail);
             }
+            Console.WriteLine(M.ResultDetail);
             return M.ResultDetail;
         }
     }
