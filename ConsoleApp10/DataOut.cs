@@ -28,6 +28,9 @@ namespace ConsoleApp6
             Density_15 = d_15;
             Volume = v;
             Density_WorkCond = d_wс;
+            Error = "";
+            Result = "";
+            Date = "";
         }
         public DataOut(string result, string error, string date)
         {

@@ -13,7 +13,6 @@ namespace ConsoleApp10
 {
     internal class Calc
     {
-        public static string errorFilePath = "..\\Error\\error.json";
         public static DataOut Exec(DataIn dataIn, string outputPath) 
         {
             var M = new CMethodOfMetering13();
@@ -36,7 +35,10 @@ namespace ConsoleApp10
             {
                 Console.WriteLine("Ошибка :" + ex.Message);
                 Console.WriteLine(M.ResultDetail);
-                dataOut = new DataOut(M.ResultDetail, ex.Message, System.DateTime.Now.ToString());
+                string str = M.ResultDetail != null ? M.ResultDetail : "Вычисления не выполнены";
+                dataOut = new DataOut(str, ex.Message, System.DateTime.Now.ToString());
+                dataOut.WriteJsonFile(outputPath);
+                return dataOut;
             }
             //Если у CMethodOfMetering13.Exec() проблема
             //с вычислениями из-за некорректных данных,
