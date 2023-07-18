@@ -25,29 +25,27 @@ namespace ConsoleApp6
         }
         public string FormatCalibrationTable()
         {
-            double tmp = Level_full / 10;
-            int i;
-            for (i = 0; i < CalibrationTable.GetLength(0); i++)
+            int level = (int)(Level_full / 10);
+            //Поиск подходящего элемента
+            int i = Array.IndexOf(CalibrationTable, level);
+
+            //Проверки на наличие нужных элементов
+            if (i < 0) 
             {
-                if (i != 0 && CalibrationTable[i, 0] != CalibrationTable[i - 1, 0] + 1)
-                {
-                    throw new Exception("Ошибка в калибровочной строке: Элементы должны отличаться на 1 мм");
-                }
-                if (tmp <= CalibrationTable[i, 0])
-                {
-                    string str = CalibrationTable[i, 0] + "=" + CalibrationTable[i, 1];
-                    if (i + 1 == CalibrationTable.GetLength(0))
-                    {
-                        throw new Exception("Ошибка в калибровочной строке: Отсутствует элемент " + (tmp + 1));
-                    }
-                    if (CalibrationTable[i + 1, 0] != tmp + 1)
-                    {
-                        throw new Exception("Ошибка в калибровочной строке: Ошибка в " + (i + 1) + "-й строке");
-                    }
-                    return str + "\r\n" + CalibrationTable[i + 1, 0] + "=" + CalibrationTable[i + 1, 1];
-                }
+                //Если пришел уровень выше резервуара, то в таблице не будет подходящего значения
+                //и функция выдаст исключение
+                throw new Exception("Ошибка в калибровочной строке: Отсутствуют элемент " + level);
             }
-            throw new Exception("Ошибка в калибровочной строке: Отсутствуют элементы" + tmp + " и " + (tmp + 1));
+            if (i + 1 == CalibrationTable.GetLength(0))
+            {
+                throw new Exception("Ошибка в калибровочной строке: Отсутствует элемент " + (level + 1));
+            }
+            if (CalibrationTable[i + 1, 0] != level + 1)
+            {
+                throw new Exception("Ошибка в калибровочной строке: Ошибка в " + (i + 1) + "-й строке");
+            }
+            return CalibrationTable[i, 0] + "=" + CalibrationTable[i, 1] + "\r\n" + 
+                   CalibrationTable[i + 1, 0] + "=" + CalibrationTable[i + 1, 1];
         }
     }
 }

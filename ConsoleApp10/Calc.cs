@@ -18,6 +18,9 @@ namespace ConsoleApp10
         {
             var M = new CMethodOfMetering13();
             dataOut = null;
+            //Если будет исключение в CMethodOfMetering13.Exec()
+            //или в DataIn.FormatCalibrationTable(),
+            //то try-catch ее поймает и выведет в файл
             try
             {
                 M.Tr = dataIn.Temperature;
@@ -33,19 +36,16 @@ namespace ConsoleApp10
             {
                 Console.WriteLine("Ошибка :" + ex.Message);
                 Console.WriteLine(M.ResultDetail);
-
-                string jsonString = "{ Result: \"" + M.ResultDetail + "\", Error: \"" + ex.Message + "\", Date: \"" + System.DateTime.Now.ToString() +"}";
-                File.WriteAllText(errorFilePath, jsonString);
-                return;
+                dataOut = new DataOut(M.ResultDetail, ex.Message, System.DateTime.Now.ToString());
             }
+            //Если у CMethodOfMetering13.Exec() проблема
+            //с вычислениями из-за некорректных данных,
+            //то ее поймает if и так же выведет в файл
             if (M.Result != 0)
             {
-                string jsonString = "{ Result: \"" + M.ResultDetail + "\", Error: \"\", Date: \"" + System.DateTime.Now.ToString() + "\"}";
-                File.WriteAllText(errorFilePath, jsonString);
-                return;
+                dataOut = new DataOut(M.ResultDetail, "", System.DateTime.Now.ToString());
             }
-            File.WriteAllText(errorFilePath, "{ Result: \"\", Error: \"\", Date:  \"\" }");
-            dataOut = new DataOut(M.M, M.V, M.Rv, M.Rcy);
+            else dataOut = new DataOut(M.M, M.V, M.Rv, M.Rcy);
             dataOut.WriteJsonFile(outputPath);
         }
     }

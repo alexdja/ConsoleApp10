@@ -19,12 +19,21 @@ namespace ConsoleApp6
         public double Volume { get; set; }
         public double Density_15 { get; set; }
         public double Density_WorkCond { get; set; }
+        public string Result { get; set; }
+        public string Error { get; set; }
+        public string Date { get; set; }
         public DataOut(double w, double v, double d_wс, double d_15)
         {
             Weight = w;
             Density_15 = d_15;
             Volume = v;
             Density_WorkCond = d_wс;
+        }
+        public DataOut(string result, string error, string date)
+        {
+            Error = error;
+            Result = result;
+            Date = date;
         }
         public void WriteJsonFile(string path) {
             string jsonString = JsonConvert.SerializeObject(this);
