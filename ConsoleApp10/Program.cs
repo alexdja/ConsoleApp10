@@ -23,7 +23,7 @@ namespace ConsoleApp10
             DataIn dIn = JsonConvert.DeserializeObject<DataIn>(File.ReadAllText(pathToInput));
             string outputPath = "..\\output.json";
             DataOut dOut = null;
-            var tmp = Calc.Exec(dIn, outputPath, out dOut);
+            Calc.Exec(dIn, outputPath, out dOut);
 
             System.Threading.Thread.Sleep(1000);    
         }
