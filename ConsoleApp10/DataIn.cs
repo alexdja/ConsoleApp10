@@ -27,10 +27,13 @@ namespace ConsoleApp6
         {
             int level = (int)(Level_full / 10);
             //Поиск подходящего элемента
-            int i = Array.IndexOf(CalibrationTable, level);
-
+            int i = 0;
+            while (i < CalibrationTable.GetLength(0) && CalibrationTable[i, 0] != level)
+            {
+                i++;
+            }
             //Проверки на наличие нужных элементов
-            if (i < 0) 
+            if (i == CalibrationTable.GetLength(0)) 
             {
                 //Если пришел уровень выше резервуара, то в таблице не будет подходящего значения
                 //и функция выдаст исключение
