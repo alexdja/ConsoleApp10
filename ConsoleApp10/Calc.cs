@@ -14,10 +14,10 @@ namespace ConsoleApp10
     internal class Calc
     {
         public static string errorFilePath = "..\\Error\\error.json";
-        public static void Exec(DataIn dataIn, string outputPath, out DataOut dataOut) 
+        public static DataOut Exec(DataIn dataIn, string outputPath) 
         {
             var M = new CMethodOfMetering13();
-            dataOut = null;
+            DataOut dataOut = null;
             //Если будет исключение в CMethodOfMetering13.Exec()
             //или в DataIn.FormatCalibrationTable(),
             //то try-catch ее поймает и выведет в файл
@@ -47,6 +47,7 @@ namespace ConsoleApp10
             }
             else dataOut = new DataOut(M.M, M.V, M.Rv, M.Rcy);
             dataOut.WriteJsonFile(outputPath);
+            return dataOut;
         }
     }
 }
