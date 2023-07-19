@@ -28,18 +28,12 @@ namespace ConsoleApp6
             try
             {
                 int level = (int)(Level_full / 10);
-                //Поиск подходящего элемента
-                int i = 0;
-                while (i < CalibrationTable.GetLength(0) && CalibrationTable[i, 0] != level)
-                {
-                    i++;
-                }
-                return CalibrationTable[i, 0] + "=" + CalibrationTable[i, 1] + "\r\n" +
-                       CalibrationTable[i + 1, 0] + "=" + CalibrationTable[i + 1, 1];
+                return CalibrationTable[level, 0] + "=" + CalibrationTable[level, 1] + "\r\n" +
+                       CalibrationTable[level + 1, 0] + "=" + CalibrationTable[level + 1, 1];
             }
             catch
             {
-                throw new Exception("Ошибка в калибровочной строке");
+                throw new Exception("Ошибка во входных данных");
             }
         }
     }

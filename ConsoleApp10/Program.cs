@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -21,6 +22,7 @@ namespace ConsoleApp10
             string pathToInput = "..\\input.json";
 
             DataIn dIn = JsonConvert.DeserializeObject<DataIn>(File.ReadAllText(pathToInput));
+
             string outputPath = "..\\output.json";
             Calc.Exec(dIn, outputPath);
 
