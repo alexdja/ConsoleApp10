@@ -24,7 +24,7 @@ namespace ConsoleApp10
             string outputPath = "..\\output.json";
             DataOut dOut = Calc.Exec(dIn, outputPath);
 
-            System.Threading.Thread.Sleep(1000);    
+            System.Threading.Thread.Sleep(10000);    
         }
     }
 }
