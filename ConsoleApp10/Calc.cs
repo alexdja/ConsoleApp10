@@ -13,15 +13,15 @@ namespace ConsoleApp10
 {
     internal class Calc
     {
-        public static DataOut Exec(DataIn dataIn, string outputPath) 
+        public static void Exec(DataIn dataIn, string outputPath) 
         {
-            DataOut dataOut = null;
             //Если будет исключение в CMethodOfMetering13.Exec()
             //или в DataIn.FormatCalibrationTable(),
             //то try-catch ее поймает и выведет в файл
             string Result = "";
             try
             {
+                DataOut dataOut = null;
                 var M = new CMethodOfMetering13();
 
                 M.Tr = dataIn.Temperature;
@@ -43,16 +43,14 @@ namespace ConsoleApp10
                 }
                 else dataOut = new DataOut(M.M, M.V, M.Rv, M.Rcy);
                 dataOut.WriteJsonFile(outputPath);
-                return dataOut;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Ошибка :" + ex.Message);
                 Console.WriteLine(Result);
                 string str = Result != null ? Result : "Вычисления не выполнены";
-                dataOut = new DataOut(str, ex.Message, System.DateTime.Now.ToString());
+                DataOut dataOut = new DataOut(str, ex.Message, System.DateTime.Now.ToString());
                 dataOut.WriteJsonFile(outputPath);
-                return dataOut;
             }
         }
     }
