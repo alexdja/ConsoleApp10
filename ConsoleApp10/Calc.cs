@@ -28,7 +28,7 @@ namespace ConsoleApp10
             {
                 DataOut dataOut = new DataOut("Вычисления не выполнены", ex.Message, System.DateTime.Now.ToString());
                 dataOut.WriteJsonFile(outputPath);
-                Console.WriteLine("Ошибка :" + ex.Message);
+                Console.WriteLine("Ошибка : " + ex.Message);
                 return;
             }
             try
@@ -59,7 +59,7 @@ namespace ConsoleApp10
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Ошибка :" + ex.Message);
+                Console.WriteLine("Ошибка : " + ex.Message);
                 Console.WriteLine(Result);
                 string str = Result != "" ? Result : "Вычисления не выполнены";
                 DataOut dataOut = new DataOut(str, ex.Message, System.DateTime.Now.ToString());
