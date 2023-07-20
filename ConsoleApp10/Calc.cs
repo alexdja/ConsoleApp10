@@ -19,13 +19,24 @@ namespace ConsoleApp10
             //или в DataIn.FormatCalibrationTable(),
             //то try-catch ее поймает и выведет в файл
             string Result = "";
+            string CalibrationTable = "";
+            try
+            {
+                CalibrationTable = dataIn.FormatCalibrationTable();
+            }
+            catch (Exception ex)
+            {
+                DataOut dataOut = new DataOut("", ex.Message, System.DateTime.Now.ToString());
+                dataOut.WriteJsonFile(outputPath);
+                return;
+            }
             try
             {
                 DataOut dataOut = null;
                 var M = new CMethodOfMetering13();
 
                 M.H = dataIn.Level_full;
-                M.CalibrationTable = dataIn.FormatCalibrationTable();
+                M.CalibrationTable = CalibrationTable;
                 M.Tv = dataIn.Temperature;
                 M.Tr = DataIn.Density_Temperature;
                 M.R = dataIn.Density_20;
@@ -49,7 +60,7 @@ namespace ConsoleApp10
             {
                 Console.WriteLine("Ошибка :" + ex.Message);
                 Console.WriteLine(Result);
-                string str = Result != null ? Result : "Вычисления не выполнены";
+                string str = Result != "" ? Result : "Вычисления не выполнены";
                 DataOut dataOut = new DataOut(str, ex.Message, System.DateTime.Now.ToString());
                 dataOut.WriteJsonFile(outputPath);
             }

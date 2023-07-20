@@ -26,15 +26,23 @@ namespace ConsoleApp6
         }
         public string FormatCalibrationTable()
         {
+            int level = (int)(Level_full / 10);
             try
             {
-                int level = (int)(Level_full / 10);
                 return CalibrationTable[level, 0] + "=" + CalibrationTable[level, 1] + "\r\n" +
                        CalibrationTable[level + 1, 0] + "=" + CalibrationTable[level + 1, 1];
             }
             catch
             {
-                throw new Exception("Ошибка во входных данных");
+                if (CalibrationTable[CalibrationTable.GetLength(0) - 1, 0] < level)
+                {
+                    throw new Exception("Введенный уровень превышает все значения калибровочной таблицы");
+                }
+                if (CalibrationTable[CalibrationTable.GetLength(0) - 1, 0] == level)
+                {
+                    throw new Exception("Введенный уровень равен максимальному значению калибровочной таблицы");
+                }
+                throw new Exception("Ошибка в калибровочной таблице");
             }
         }
     }
