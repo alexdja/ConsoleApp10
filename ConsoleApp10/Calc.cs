@@ -24,11 +24,12 @@ namespace ConsoleApp10
                 DataOut dataOut = null;
                 var M = new CMethodOfMetering13();
 
-                M.Tr = dataIn.Temperature;
-                M.R = dataIn.Density_20;
-                M.Tcy = DataIn.Density_Temperature;
-                M.CalibrationTable = dataIn.FormatCalibrationTable();
                 M.H = dataIn.Level_full;
+                M.CalibrationTable = dataIn.FormatCalibrationTable();
+                M.Tv = dataIn.Temperature;
+                M.Tr = DataIn.Density_Temperature;
+                M.R = dataIn.Density_20;
+                M.Tcy = DataIn.Target_Temperature;
                 M.ToolType = ToolTypeEnum.ToolType_Areometer_20;
                 M.Exec();
                 Console.WriteLine(M.ResultDetail);

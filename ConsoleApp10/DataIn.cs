@@ -11,6 +11,7 @@ namespace ConsoleApp6
     internal class DataIn
     {
         public const int Density_Temperature = 20;
+        public const int Target_Temperature = 15;
         public double Density_20 { get; set; }
         public double Temperature { get; set; }
         public double[,] CalibrationTable { get; set; }
