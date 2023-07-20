@@ -26,8 +26,9 @@ namespace ConsoleApp10
             }
             catch (Exception ex)
             {
-                DataOut dataOut = new DataOut("", ex.Message, System.DateTime.Now.ToString());
+                DataOut dataOut = new DataOut("Вычисления не выполнены", ex.Message, System.DateTime.Now.ToString());
                 dataOut.WriteJsonFile(outputPath);
+                Console.WriteLine("Ошибка :" + ex.Message);
                 return;
             }
             try
