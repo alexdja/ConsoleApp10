@@ -55,6 +55,8 @@ namespace ConsoleApp10
                     dataOut = new DataOut(Result, "", System.DateTime.Now.ToString());
                 }
                 else dataOut = new DataOut(M.M, M.V, M.Rv, M.Rcy);
+                Console.WriteLine(M.DeltaV);
+
                 dataOut.WriteJsonFile(outputPath);
             }
             catch (Exception ex)

@@ -30,7 +30,7 @@ namespace ConsoleApp6
             try
             {
                 string str = CalibrationTable[level, 0] + "=" + CalibrationTable[level, 1];
-                if (CalibrationTable.GetLength(0) - 1 > Level_full/10)
+                if (CalibrationTable.GetLength(0) - 1 > Level_full / 10)
                 {
                     str += "\r\n" + CalibrationTable[level + 1, 0] + "=" + CalibrationTable[level + 1, 1];
                 }
